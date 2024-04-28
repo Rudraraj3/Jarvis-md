@@ -3,7 +3,7 @@
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-WhatsAsena - Yusuf Usta
+zoro-md-v1.0.1 - Yusuf Usta
 */
 
 const chalk = require('chalk');
@@ -13,7 +13,7 @@ const {WAConnection, MessageOptions, MessageType} = require('@adiwajshing/bailey
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-WhatsAsena - Yusuf Usta
+zoro-md-v1.0.1 - Yusuf Usta
 */
 
 const chalk = require('chalk');
@@ -21,7 +21,7 @@ const {WAConnection, MessageOptions, MessageType} = require('@adiwajshing/bailey
 const {StringSession} = require('./zoro-md-v1.0.1/');
 const fs = require('fs');
 
-async function whatsAsena () {
+async function zoro-md-v1.0.1 () {
     const conn = new WAConnection();
     const Session = new StringSession();  
     conn.version = [2, 2119, 6]
@@ -66,10 +66,10 @@ ${chalk.blue.italic('ℹ️  Connecting to Whatsapp... Please Wait.')}`);
     await conn.connect();
 }
 
-whatsAsena()/');
+zoro-md-v1.0.1()/');
 const fs = require('fs');
 
-async function whatsAsena () {
+async function zoro-md-v1.0.1 () {
     const conn = new WAConnection();
     const Session = new StringSession();  
     conn.version = [2, 2119, 6]
@@ -114,4 +114,4 @@ ${chalk.blue.italic('ℹ️  Connecting to Whatsapp... Please Wait.')}`);
     await conn.connect();
 }
 
-whatsAsena()
+zoro-md-v1.0.1()
