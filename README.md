@@ -1,8 +1,8 @@
-#### JARVIS MD WHATSAPP BOT
+#### ZORO MD WHATSAPP BOT
 jarvis md is Multi Device whatsapp bot based on X-Asena
 ***
 
-### SETUP JARVIS
+### SETUP ZORO-MD-V1.0.1
 
 1. Scan the QR code
     <br>
@@ -71,21 +71,7 @@ jarvis md is Multi Device whatsapp bot based on X-Asena
   </details>
  
 
-#### THANKS TO
-- [INRL ❤️](https://github.com/inrl-official) <br>
-- [X-Electra](https://github.com/inrl-official) for [X-Asena](https://github.com/X-Electra/X-Asena)
 
-#### JARVIS SUPPORT 
-
-
-<details close>
-<summary>Read More</summary>
-    <br>
-<a href="https://whatsapp.com/channel/0029Va9dOax4o7qDb6pVvp34"><img alt="WhatsApp" src="https://img.shields.io/badge/-Whatsapp%20Channel-white?style=for-the-badge&logo=whatsapp&logoColor=black"/></a>
-    <br>
-<br>
-<a href="https://chat.whatsapp.com/HCRUrl9kCvEL6v7OhmG5BR"><img alt="WhatsApp" src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/></a>
-    <br>
 <br>
 <a href='https://github.com/IRON-M4N/Jarvis-MD-Plugins' target="_blank"><img alt='jarvis-md' src='https://img.shields.io/badge/EXPLUGIN-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=black&color=black'/></a>
 
