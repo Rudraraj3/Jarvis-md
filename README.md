@@ -67,11 +67,3 @@ jarvis md is Multi Device whatsapp bot based on X-Asena
     
  Copy the web url and add to the Environment Variables as SERVERURL
    
-
-  </details>
- 
-
-
-<br>
-<a href='https://github.com/IRON-M4N/Jarvis-MD-Plugins' target="_blank"><img alt='jarvis-md' src='https://img.shields.io/badge/EXPLUGIN-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=black&color=black'/></a>
-
