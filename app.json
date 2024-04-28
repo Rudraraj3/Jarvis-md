@@ -2,7 +2,7 @@
     "name": "zoro-md-v1.0.1",
     "version":"1.0.0",
     "description": "zoro Multi Device whatsappbot",
-    "logo": "https://telegra.ph/file/4abb5e925d4ffeedd1a18.jpg",
+    "logo": "https://i.imgur.com/0Eka4Gs.jpeg",
     "keywords": ["whatsapp"],
     "repository": "https://github.com/zokosir/ZORO-MD-V1.0.1",
     "website": "https://github.com/Loki-Xer/Jarvis",
@@ -12,12 +12,12 @@
         "BOT_INFO": {
             "description": "botname;ownername;ownernumber;image url",
             "required": true,
-            "value":"zoro;https://telegra.ph/file/4abb5e925d4ffeedd1a18.jpg"
+            "value":"zoro;https://i.imgur.com/0Eka4Gs.jpeg"
         },
         "AUDIO_DATA": {
             "description": "audio package name",
             "required": true,
-            "value":"zoro-md;ᴊᴀʀᴠɪꜱ;https://telegra.ph/file/4abb5e925d4ffeedd1a18.jpg"
+            "value":"zoro-md;ᴊᴀʀᴠɪꜱ;https://i.imgur.com/0Eka4Gs.jpeg"
         },
         "WARN_COUNT": {
             "description": "warn count",
@@ -37,7 +37,7 @@
         "MEDIA_DATA": {
             "description": "media data that uses in list",
             "required": true,
-            "value":"ʟɪꜱᴛ ᴍᴇɴᴜ;zoro-md;https://telegra.ph/file/4abb5e925d4ffeedd1a18.jpg"
+            "value":"ʟɪꜱᴛ ᴍᴇɴᴜ;zoro-md;https://i.imgur.com/0Eka4Gs.jpeg"
         },
         "HANDLER": {
             "description": "handler for bot. all so can be null or false",
