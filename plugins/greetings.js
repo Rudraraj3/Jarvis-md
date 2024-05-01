@@ -1,111 +1,117 @@
-/*------------------------------------------------------------------------------------------------------------------------------------------------------
+/* Copyright (C) 2020 Yusuf Usta.
 
-
-Copyright (C) 2023 Loki - Xer.
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
-Jarvis - Loki-Xer 
 
+WhatsJulie - Yusuf Usta
+*/
 
-------------------------------------------------------------------------------------------------------------------------------------------------------*/
+const Julie = require('../events');
+const {MessageType} = require('@adiwajshing/baileys');
+const sql = require('./sql/greetings');
+const Config = require('../config');
 
-const { System } = require("../lib/");
-const { setMessage, getMessage, delMessage, getStatus, toggleStatus } = require("../lib/database").Greetings;
+const Language = require('../language');
+const Lang = Language.getString('greetings');
 
-System({
-        pattern: "welcome",
-        fromMe: true,
-        desc: "description",
-        type: "group",
-    },
-    async (message, match) => {
-        if (!message.isGroup) return;
-        let {
-            prefix
-        } = message;
-        let status = await getStatus(message.jid, "welcome");
-        let stat = status ? "on": "off";
-
-        if (!match) {
-            let replyMsg = `Welcome manager\n\nGroup: ${
-            (await message.client.groupMetadata(message.jid)).subject
-            }\nStatus: ${stat}\n\nAvailable Actions:\n\n- ${prefix}welcome get: Get the welcome message\n- ${prefix}welcome on: Enable welcome message\n- ${prefix}welcome off: Disable welcome message\n- ${prefix}welcome delete: Delete the welcome message`;
-
-            return await message.reply(replyMsg);
-        }
-
-        if (match === "get") {
-            let msg = await getMessage(message.jid, "welcome");
-            if (!msg) return await message.reply("_There is no welcome set_");
-            return message.reply(msg.message);
-        }
-
-        if (match === "on") {
-            let msg = await getMessage(message.jid, "welcome");
-            if (!msg)
-                return await message.reply("_There is no welcome message to enable_");
-            if (status) return await message.reply("_Welcome already enabled_");
-            await toggleStatus(message.jid);
-            return await message.reply("_Welcome enabled_");
-        }
-
-        if (match === "off") {
-            if (!status) return await message.reply("_Welcome already disabled_");
-            await toggleStatus(message.jid, "welcome");
-            return await message.reply("_Welcome disabled_");
-        }
-
-        if (match == "delete") {
-            await delMessage(message.jid, "welcome");
-            return await message.reply("_Welcome deleted successfully_");
-        }
-        await setMessage(message.jid, "welcome", match);
-        return await message.reply("_Welcome set successfully_");
+Julie.addCommand({pattern: 'welcome$', fromMe: true, desc: Lang.WELCOME_DESC}, (async (message, match) => {
+    var hg = await sql.getMessage(message.jid);
+    if (hg === false) {
+        await message.client.sendMessage(message.jid,Lang.NOT_SET_WELCOME,MessageType.text);
+    } else {
+        await message.client.sendMessage(message.jid,Lang.WELCOME_ALREADY_SETTED + hg.message + '```',MessageType.text);
     }
-);
+}));
 
-System({
-        pattern: "goodbye",
-        fromMe: true,
-        desc: "description",
-        type: "group",
-    },
-    async (message, match) => {
-        if (!message.isGroup) return;
-        let status = await getStatus(message.jid, "goodbye");
-        let stat = status ? "on": "off";
-        let replyMsg = `Goodbye manager\n\nGroup: ${
-        (await message.client.groupMetadata(message.jid)).subject
-        }\nStatus: ${stat}\n\nAvailable Actions:\n\n- goodbye get: Get the goodbye message\n- goodbye on: Enable goodbye message\n- goodbye off: Disable goodbye message\n- goodbye delete: Delete the goodbye message`;
-
-        if (!match) {
-            return await message.reply(replyMsg);
-        }
-
-        if (match === "get") {
-            let msg = await getMessage(message.jid, "goodbye");
-            if (!msg) return await message.reply("_There is no goodbye set_");
-            return message.reply(msg.message);
-        }
-
-        if (match === "on") {
-            await toggleStatus(message.jid, "goodbye");
-            return await message.reply("_Goodbye enabled_");
-        }
-        //return await message.reply("_Goodbye enabled_");
-        //}
-
-        if (match === "off") {
-            await toggleStatus(message.jid);
-            return await message.reply("_Goodbye disabled_");
-        }
-
-        if (match === "delete") {
-            await delMessage(message.jid, "goodbye");
-            return await message.reply("_Goodbye deleted successfully_");
-        }
-
-        await setMessage(message.jid, "goodbye", match);
-        return await message.reply("_Goodbye set successfully_");
+Julie.addCommand({pattern: 'welcome (.*)', fromMe: true, dontAddCommandList: true}, (async (message, match) => {
+    if (match[1] === '') {
+        return await message.client.sendMessage(message.jid,Lang.NEED_WELCOME_TEXT);
+    } else {
+        if (match[1] === 'delete') { await message.client.sendMessage(message.jid,Lang.WELCOME_DELETED,MessageType.text); return await sql.deleteMessage(message.jid, 'welcome'); }
+        await sql.setMessage(message.jid, 'welcome', match[1].replace(/#/g, '\n'));
+        return await message.client.sendMessage(message.jid,Lang.WELCOME_SETTED,MessageType.text)
     }
-);
+}));
+
+Julie.addCommand({pattern: 'goodbye$', fromMe: true, desc: Lang.GOODBYE_DESC}, (async (message, match) => {
+    var hg = await sql.getMessage(message.jid, 'goodbye');
+    if (hg === false) {
+        await message.client.sendMessage(message.jid,Lang.NOT_SET_GOODBYE,MessageType.text)
+    } else {
+        await message.client.sendMessage(message.jid,Lang.GOODBYE_ALREADY_SETTED + hg.message + '```',MessageType.text);
+    }
+}));
+
+Julie.addCommand({pattern: 'goodbye (.*)', fromMe: true, dontAddCommandList: true}, (async (message, match) => {
+    if (match[1] === '') {
+        return await message.client.sendMessage(message.jid,Lang.NEED_GOODBYE_TEXT,MessageType.text);
+    } else {
+        if (match[1] === 'delete') { await message.client.sendMessage(message.jid,Lang.GOODBYE_DELETED,MessageType.text); return await sql.deleteMessage(message.jid, 'goodbye'); }
+        await sql.setMessage(message.jid, 'goodbye', match[1].replace(/#/g, '\n'));
+        return await message.client.sendMessage(message.jid,Lang.GOODBYE_SETTED,MessageType.text)
+    }
+}));
+
+if (Config.WORKTYPE == 'admin') {
+    
+    async function checkUsAdmin(message, user = message.data.participant) {
+    var grup = await message.client.groupMetadata(message.jid);
+    var sonuc = grup['participants'].map((member) => {     
+        if (member.jid.split("@")[0] == user.split("@")[0] && member.isAdmin) return true; else; return false;
+    });
+    return sonuc.includes(true);
+}
+async function checkImAdmin(message, user = message.client.user.jid) {
+    var grup = await message.client.groupMetadata(message.jid);
+    var sonuc = grup['participants'].map((member) => {     
+        if (member.jid.split("@")[0] == user.split("@")[0] && member.isAdmin) return true; else; return false;
+    });
+    return sonuc.includes(true);
+}
+    
+    Julie.addCommand({pattern: 'welcome$', fromMe: false, desc: Lang.WELCOME_DESC}, (async (message, match) => {
+    var us = await checkUsAdmin(message);
+    if (!us) return await message.client.sendMessage(message.jid,Lang.PLKADMIN ,MessageType.text ,{quoted: message.data });
+    var hg = await sql.getMessage(message.jid);
+    if (hg === false) {
+        await message.client.sendMessage(message.jid,Lang.NOT_SET_WELCOME,MessageType.text);
+    } else {
+        await message.client.sendMessage(message.jid,Lang.WELCOME_ALREADY_SETTED + hg.message + '```',MessageType.text);
+    }
+}));
+
+Julie.addCommand({pattern: 'welcome (.*)', fromMe: false, dontAddCommandList: true}, (async (message, match) => {
+    var us = await checkUsAdmin(message);
+    if (!us) return await message.client.sendMessage(message.jid,Lang.PLKADMIN,MessageType.text ,{quoted: message.data });
+    if (match[1] === '') {
+        return await message.client.sendMessage(message.jid,Lang.NEED_WELCOME_TEXT);
+    } else {
+        if (match[1] === 'delete') { await message.client.sendMessage(message.jid,Lang.WELCOME_DELETED,MessageType.text); return await sql.deleteMessage(message.jid, 'welcome'); }
+        await sql.setMessage(message.jid, 'welcome', match[1].replace(/#/g, '\n'));
+        return await message.client.sendMessage(message.jid,Lang.WELCOME_SETTED,MessageType.text)
+    }
+}));
+
+Julie.addCommand({pattern: 'goodbye$', fromMe: false, desc: Lang.GOODBYE_DESC}, (async (message, match) => {
+    var us = await checkUsAdmin(message);
+    if (!us) return await message.client.sendMessage(message.jid,Lang.PLKADMIN,MessageType.text ,{quoted: message.data });
+    var hg = await sql.getMessage(message.jid, 'goodbye');
+    if (hg === false) {
+        await message.client.sendMessage(message.jid,Lang.NOT_SET_GOODBYE,MessageType.text)
+    } else {
+        await message.client.sendMessage(message.jid,Lang.GOODBYE_ALREADY_SETTED + hg.message + '```',MessageType.text);
+    }
+}));
+
+Julie.addCommand({pattern: 'goodbye (.*)', fromMe: false, dontAddCommandList: true}, (async (message, match) => {
+    var us = await checkUsAdmin(message);
+    if (!us) return await message.client.sendMessage(message.jid,Lang.PLKADMIN,MessageType.text ,{quoted: message.data });
+    if (match[1] === '') {
+        return await message.client.sendMessage(message.jid,Lang.NEED_GOODBYE_TEXT,MessageType.text);
+    } else {
+        if (match[1] === 'delete') { await message.client.sendMessage(message.jid,Lang.GOODBYE_DELETED,MessageType.text); return await sql.deleteMessage(message.jid, 'goodbye'); }
+        await sql.setMessage(message.jid, 'goodbye', match[1].replace(/#/g, '\n'));
+        return await message.client.sendMessage(message.jid,Lang.GOODBYE_SETTED,MessageType.text)
+    }
+}));
+}
