@@ -12,7 +12,7 @@ const toBool = (x) => x === 'true';
 const DATABASE_URL = process.env.DATABASE_URL === undefined ? "./database.db" : process.env.DATABASE_URL
 
 module.exports = {
-  AUDIO_DATA: process.env.AUDIO_DATA || 'ʟᴏᴋɪ-xᴇʀ;ᴊᴀʀᴠɪꜱ;https://i.imgur.com/ep3UbBP.jpg',
+  AUDIO_DATA: process.env.AUDIO_DATA || 'Toxic-Ali;ᴊᴀʀᴠɪꜱ;https://qu.ax/CrhPO.jpg',
   WARN_COUNT: process.env.WARN_COUNT || '3',
   LOGS: toBool(process.env.LOGS) || true,
   KOYEB_API: process.env.KOYEB_API || '',
@@ -27,16 +27,16 @@ module.exports = {
   RMBG_KEY: process.env.RMBG_KEY || false,
   BRANCH: 'main',
   PORT: toBool(process.env.PORT) || 8000,
-  STICKER_PACKNAME: process.env.STICKER_PACKNAME || 'ᴊᴀʀᴠɪꜱ;ᴡᴀʙᴏᴛ',
+  STICKER_PACKNAME: process.env.STICKER_PACKNAME || 'Toxic;Ali',
   AUTO_STATUS_VIEWS: toBool(process.env.AUTO_STATUS_VIEWS || 'false'),
   WELCOME_MSG: process.env.WELCOME_MSG || 'Hi @user Welcome to @gname',
   GOODBYE_MSG: process.env.GOODBYE_MSG || 'Hi @user It was Nice Seeing you',
   AUTHOR: process.env.AUTHOR || 'ʟᴏᴋɪ-xᴇʀ',
-  MEDIA_DATA: process.env.MEDIA_DATA|| 'ʟɪꜱᴛ ᴍᴇɴᴜ;ᴊᴀʀᴠɪꜱ-ᴍᴅ;https://i.imgur.com/ltPPMTh.jpeg',
+  MEDIA_DATA: process.env.MEDIA_DATA|| 'ʟɪꜱᴛ ᴍᴇɴᴜ;Toxic-Ali;https://qu.ax/CrhPO.jpg',
   SUDO: process.env.SUDO || '917025673121,',
   HEROKU_APP_NAME: process.env.HEROKU_APP_NAME || '',
   HEROKU_API_KEY: process.env.HEROKU_API_KEY || '',
-  BOT_INFO: process.env.BOT_INFO || 'ᴊᴀʀᴠɪꜱ;ʟᴏᴋɪ-xᴇʀ;https://i.imgur.com/VIpl3q5.mp4',
+  BOT_INFO: process.env.BOT_INFO || 'Toxic;Ali-xᴇʀ;https://i.imgur.com/VIpl3q5.mp4',
   WORK_TYPE: process.env.WORK_TYPE || 'private',
   DATABASE: DATABASE_URL === "./database.db" ? new Sequelize({ dialect: "sqlite", storage: DATABASE_URL, logging: false }) : new Sequelize(DATABASE_URL, {dialect: "postgres", ssl: true, protocol: "postgres", dialectOptions: { native: true, ssl: { require: true, rejectUnauthorized: false },}, logging: false }),
 };
